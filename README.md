@@ -15,6 +15,8 @@ It uses docker and docker-compose. php-5.5, apache2.4 & mysql-5.5 but it can be 
 
 # Customization
 
+* important! the MPSoft solution you need to create a .env file for the docker-compose.
+
 * Customize the docker-compose.yml file to fit your needs. 
 
 * Change your PHP Version:
