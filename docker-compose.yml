@@ -8,15 +8,17 @@ services:
     container_name: webserver
     ports:
       - 80:80
+    expose:
+      - '80'
     volumes:
       - ${SOLUTION_DIR}/www
       - ${SOLUTION_DIR}/logs/apache2:/var/log/apache2
 
   db:
-    image: mysql:5.7
+    image: mariadb
     restart: always
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      #MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -25,5 +27,13 @@ services:
     expose:
       - '3306'
     volumes:
-      - ./db_data:/var/lib/mysql/data
-  
+      - ./db_data:/var/lib/mysql/data/${MYSQL_DATABASE}
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    expose:
+      - '8080'
+
