@@ -9,18 +9,20 @@ services:
     ports:
       - 80:80
     volumes:
-      - .:/opt/mps/cms/solution/www
-      - ./logs/apache2:/var/log/apache2
+      - ${SOLUTION_DIR}/www
+      - ${SOLUTION_DIR}/logs/apache2:/var/log/apache2
 
   db:
-    image: mysql:5.5
-    container_name: mysql
+    image: mysql:5.7
+    restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${mysqlpassword}
-      - MYSQL_DATABASE=${mysql_db}
-      - MYSQL_USER=${mysqluser}
-      - MYSQL_PASSWORD=${mysqlpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - 3306:3306
+      - '3306:3306'
+    expose:
+      - '3306'
     volumes:
-      - /var/lib/mysql/${mysql_db}:/var/lib/mysql/${mysql_db}
+      - ${SOLUTION_DIR}/mysql/${MYSQL_DATABASE}:/var/lib/mysql/${MYSQL_DATABASE}
